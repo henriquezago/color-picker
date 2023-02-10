@@ -4,7 +4,7 @@ import knex from "../../clients/knex";
 
 const TABLE = "palette";
 
-export interface RGB {
+export type RGB = {
   id?: number;
   red: number;
   green: number;
