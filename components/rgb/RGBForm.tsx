@@ -3,9 +3,11 @@ import { useCallback, useEffect, useState } from "react";
 import { RGB } from "../../pages/api/palette";
 
 import s from "./RGBForm.module.css";
+import Button from "../layout/Button";
 
-interface RGBFormProps {
+type RGBFormProps = {
   rgb: RGB;
+  disabled?: boolean;
   onCancel: () => void;
   onColorChange: (rgb: RGB) => void;
   onSave: (rgb: RGB) => void;
@@ -17,7 +19,7 @@ enum RGBField {
   blue
 }
 
-export default function RGBForm({ rgb, onCancel, onColorChange, onSave }: RGBFormProps) {
+export default function RGBForm({ disabled, rgb, onCancel, onColorChange, onSave }: RGBFormProps) {
   const [rgbValue, setRGBValue] = useState(rgb);
 
   useEffect(() => {
@@ -70,6 +72,7 @@ export default function RGBForm({ rgb, onCancel, onColorChange, onSave }: RGBFor
           type="number"
           min={0}
           max={255}
+          disabled={disabled}
         />
         <input
           value={rgbValue.green.toString()}
@@ -77,6 +80,7 @@ export default function RGBForm({ rgb, onCancel, onColorChange, onSave }: RGBFor
           type="number"
           min={0}
           max={255}
+          disabled={disabled}
         />
         <input
           value={rgbValue.blue.toString()}
@@ -84,11 +88,17 @@ export default function RGBForm({ rgb, onCancel, onColorChange, onSave }: RGBFor
           type="number"
           min={0}
           max={255}
+          disabled={disabled}
         />
       </div>
       <div className={s.buttons}>
-        <button type="button" disabled={!rgbValue.id} onClick={() => onCancel()}>cancel</button>
-        <button type="button" onClick={() => onSave(rgbValue)}>save</button>
+        <Button type="button" disabled={!rgbValue.id} onClick={() => onCancel()}>
+          cancel
+        </Button>
+
+        <Button type="button" onClick={() => onSave(rgbValue)} disabled={disabled}>
+          save
+        </Button>
       </div>
     </div>
   );

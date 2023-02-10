@@ -20,6 +20,7 @@ const Welcome = () => {
   } as RGB);
 
   const isEditing = !!currentColor.id;
+  const maxColorsReached = colors.length >= 5;
 
   const fetchColors = useCallback(async () => {
     const { status, data } = await axios.get(API_ENDPOINT);
@@ -72,7 +73,15 @@ const Welcome = () => {
       {isEditing ? <h2 className={s.subTitle}>Editing: color {currentColor.id}</h2> : null}
       <div className={s.content}>
         <RGBDisplay rgb={currentColor} />
-        <RGBForm rgb={currentColor} onColorChange={onColorChange} onSave={saveColor} onCancel={cancelEditing} />
+
+        <RGBForm
+          disabled={!isEditing && maxColorsReached}
+          rgb={currentColor}
+          onColorChange={onColorChange}
+          onSave={saveColor}
+          onCancel={cancelEditing}
+        />
+
         <ColorList colors={colors} onDelete={deleteColor} onEdit={startEditingColor} />
       </div>
     </div>

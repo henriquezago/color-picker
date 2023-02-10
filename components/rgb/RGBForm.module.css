@@ -2,10 +2,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 1rem;
+  width: 12.5rem;
 }
 
 .buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 1rem;
 }
