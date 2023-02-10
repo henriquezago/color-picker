@@ -17,13 +17,11 @@ enum RGBField {
 }
 
 export default function RGBForm({ rgb, onColorChange, onSave }: RGBFormProps) {
-  const { red, green, blue } = rgb;
-
   const [rgbValue, setRGBValue] = useState(rgb);
 
-  const onChange = (value: string, field: RGBField) => {
+  const onChange = useCallback((value: string, field: RGBField) => {
     switch (field) {
-      case red:
+      case RGBField.red:
         const newRed = {
           ...rgbValue,
           red: parseInt(value)
@@ -32,7 +30,7 @@ export default function RGBForm({ rgb, onColorChange, onSave }: RGBFormProps) {
         onColorChange(newRed);
         break;
 
-      case green:
+      case RGBField.green:
         const newGreen = {
           ...rgbValue,
           green: parseInt(value)
@@ -41,7 +39,7 @@ export default function RGBForm({ rgb, onColorChange, onSave }: RGBFormProps) {
         onColorChange(newGreen);
         break;
 
-      case blue:
+      case RGBField.blue:
         const newBlue = {
           ...rgbValue,
           blue: parseInt(value)
@@ -54,27 +52,27 @@ export default function RGBForm({ rgb, onColorChange, onSave }: RGBFormProps) {
         console.error("invalid field");
         break;
     }
-  };
+  },[rgbValue, setRGBValue, onColorChange]);
 
   return (
     <div className={s.wrapper}>
       <input
         value={rgbValue.red.toString()}
-        onChange={(event) => onChange(event.target.value, red)}
+        onChange={(event) => onChange(event.target.value, RGBField.red)}
         type="number"
         min={0}
         max={255}
       />
       <input
         value={rgbValue.green.toString()}
-        onChange={(event) => onChange(event.target.value, green)}
+        onChange={(event) => onChange(event.target.value, RGBField.green)}
         type="number"
         min={0}
         max={255}
       />
       <input
         value={rgbValue.blue.toString()}
-        onChange={(event) => onChange(event.target.value, blue)}
+        onChange={(event) => onChange(event.target.value, RGBField.blue)}
         type="number"
         min={0}
         max={255}
