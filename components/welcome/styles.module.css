@@ -2,17 +2,18 @@
   padding: 10px 20px;
 }
 
-.welcome {
+.title {
   text-align: center;
   margin-top: 150px;
   font-size: 2.5rem;
 }
 
-.form {
+.content {
   width: 100%;
   max-width: 600px;
   display: flex;
-  height: 42px;
+  flex-direction: column;
+  align-items: center;
   margin: 50px auto;
 }
 
