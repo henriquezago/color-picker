@@ -9,7 +9,7 @@ export type RGB = {
   red: number;
   green: number;
   blue: number;
-}
+};
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {

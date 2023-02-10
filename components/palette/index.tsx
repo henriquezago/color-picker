@@ -1,6 +1,6 @@
-import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
+import useColors from "../../hooks/useColors";
 import { RGB } from "../../pages/api/palette";
 import ColorList from "../rgb/ColorList";
 import RGBDisplay from "../rgb/RGBDisplay";
@@ -8,10 +8,9 @@ import RGBForm from "../rgb/RGBForm";
 
 import s from "./styles.module.css";
 
-const API_ENDPOINT = "/api/palette";
-
 const Welcome = () => {
-  const [colors, setColors] = useState([] as RGB[]);
+  const { colors, saveColor, deleteColor } = useColors();
+
   const [currentColor, setCurrentColor] = useState({
     id: null,
     red: 255,
@@ -22,41 +21,13 @@ const Welcome = () => {
   const isEditing = !!currentColor.id;
   const maxColorsReached = colors.length >= 5;
 
-  const fetchColors = useCallback(async () => {
-    const { status, data } = await axios.get(API_ENDPOINT);
-
-    if (status === 200) {
-      setColors(data as RGB[]);
-    } else {
-      throw new Error("Error connecting to server");
-    }
-  }, [setColors]);
-
-  useEffect(() => {
-    fetchColors();
-  }, [fetchColors]);
-
   const onColorChange = useCallback(rgb => {
     setCurrentColor(rgb);
   }, [setCurrentColor]);
 
-  const saveColor = useCallback(async (rgb: RGB) => {
-    if (rgb.id) {
-      await axios.put(API_ENDPOINT, rgb);
-    } else {
-      await axios.post(API_ENDPOINT, rgb);
-    }
-    await fetchColors();
-  }, [fetchColors])
-
   const startEditingColor = useCallback((color: RGB) => {
     setCurrentColor(color);
   }, [setCurrentColor])
-
-  const deleteColor = async (id: number) => {
-    await axios.delete(API_ENDPOINT, { data: id });
-    await fetchColors();
-  }
 
   const cancelEditing = useCallback(() => {
     setCurrentColor({
