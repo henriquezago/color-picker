@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { RGB } from "../../pages/api/palette";
 
@@ -6,6 +6,7 @@ import s from "./RGBForm.module.css";
 
 interface RGBFormProps {
   rgb: RGB;
+  onCancel: () => void;
   onColorChange: (rgb: RGB) => void;
   onSave: (rgb: RGB) => void;
 }
@@ -16,8 +17,14 @@ enum RGBField {
   blue
 }
 
-export default function RGBForm({ rgb, onColorChange, onSave }: RGBFormProps) {
+export default function RGBForm({ rgb, onCancel, onColorChange, onSave }: RGBFormProps) {
   const [rgbValue, setRGBValue] = useState(rgb);
+
+  useEffect(() => {
+    setRGBValue(rgb);
+  }, [rgb, setRGBValue]);
+
+  console.log("rgb", rgbValue.id);
 
   const onChange = useCallback((value: string, field: RGBField) => {
     switch (field) {
@@ -52,32 +59,37 @@ export default function RGBForm({ rgb, onColorChange, onSave }: RGBFormProps) {
         console.error("invalid field");
         break;
     }
-  },[rgbValue, setRGBValue, onColorChange]);
+  }, [rgbValue, setRGBValue, onColorChange]);
 
   return (
     <div className={s.wrapper}>
-      <input
-        value={rgbValue.red.toString()}
-        onChange={(event) => onChange(event.target.value, RGBField.red)}
-        type="number"
-        min={0}
-        max={255}
-      />
-      <input
-        value={rgbValue.green.toString()}
-        onChange={(event) => onChange(event.target.value, RGBField.green)}
-        type="number"
-        min={0}
-        max={255}
-      />
-      <input
-        value={rgbValue.blue.toString()}
-        onChange={(event) => onChange(event.target.value, RGBField.blue)}
-        type="number"
-        min={0}
-        max={255}
-      />
-      <button type="button" onClick={() => onSave(rgbValue)}>save</button>
+      <div className={s.inputs}>
+        <input
+          value={rgbValue.red.toString()}
+          onChange={(event) => onChange(event.target.value, RGBField.red)}
+          type="number"
+          min={0}
+          max={255}
+        />
+        <input
+          value={rgbValue.green.toString()}
+          onChange={(event) => onChange(event.target.value, RGBField.green)}
+          type="number"
+          min={0}
+          max={255}
+        />
+        <input
+          value={rgbValue.blue.toString()}
+          onChange={(event) => onChange(event.target.value, RGBField.blue)}
+          type="number"
+          min={0}
+          max={255}
+        />
+      </div>
+      <div className={s.buttons}>
+        <button type="button" disabled={!rgbValue.id} onClick={() => onCancel()}>cancel</button>
+        <button type="button" onClick={() => onSave(rgbValue)}>save</button>
+      </div>
     </div>
   );
 };

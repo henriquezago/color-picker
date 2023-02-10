@@ -1,11 +1,17 @@
 .welcomeContainer {
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem;
 }
 
 .title {
   text-align: center;
-  margin-top: 150px;
+  margin-top: 9.375rem;
   font-size: 2.5rem;
+}
+
+.subTitle {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.5rem;
 }
 
 .content {
@@ -19,7 +25,7 @@
 
 .input {
   flex: 1;
-  padding: 10px 12px;
+  padding: 0.625rem 0.75rem;
   border-radius: 3px 0 0 3px;
   border: solid 1px grey;
   border-right: none;
@@ -40,8 +46,8 @@
   font-size: 1rem;
   font-weight: 400;
   border-style: solid;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 0.9375rem;
+  padding-right: 0.9375rem;
   letter-spacing: 0.5px;
   border-radius: 0 3px 3px 0;
   border-width: 1px;
