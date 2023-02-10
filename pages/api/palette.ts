@@ -19,9 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const color = await knex(TABLE).insert(req.body);
     res.status(200).json(color);
   } else if (req.method === "PUT") {
-    await knex(TABLE)
-      .where({ id: req.body.id })
-      .update({ body: req.body.body });
+    await knex(TABLE).where({ id: req.body.id }).update(req.body);
 
     const [color] = await knex(TABLE).where({ id: req.body.id }).limit(1);
     res.status(200).json(color);
