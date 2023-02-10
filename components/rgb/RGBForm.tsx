@@ -26,8 +26,6 @@ export default function RGBForm({ disabled, rgb, onCancel, onColorChange, onSave
     setRGBValue(rgb);
   }, [rgb, setRGBValue]);
 
-  console.log("rgb", rgbValue.id);
-
   const onChange = useCallback((value: string, field: RGBField) => {
     switch (field) {
       case RGBField.red:
@@ -66,30 +64,39 @@ export default function RGBForm({ disabled, rgb, onCancel, onColorChange, onSave
   return (
     <div className={s.wrapper}>
       <div className={s.inputs}>
-        <input
-          value={rgbValue.red.toString()}
-          onChange={(event) => onChange(event.target.value, RGBField.red)}
-          type="number"
-          min={0}
-          max={255}
-          disabled={disabled}
-        />
-        <input
-          value={rgbValue.green.toString()}
-          onChange={(event) => onChange(event.target.value, RGBField.green)}
-          type="number"
-          min={0}
-          max={255}
-          disabled={disabled}
-        />
-        <input
-          value={rgbValue.blue.toString()}
-          onChange={(event) => onChange(event.target.value, RGBField.blue)}
-          type="number"
-          min={0}
-          max={255}
-          disabled={disabled}
-        />
+        <div>
+          <span>Red:</span>
+          <input
+            value={rgbValue.red.toString()}
+            onChange={(event) => onChange(event.target.value, RGBField.red)}
+            type="number"
+            min={0}
+            max={255}
+            disabled={disabled}
+          />
+        </div>
+        <div>
+          <span>Green:</span>
+          <input
+            value={rgbValue.green.toString()}
+            onChange={(event) => onChange(event.target.value, RGBField.green)}
+            type="number"
+            min={0}
+            max={255}
+            disabled={disabled}
+          />
+        </div>
+        <div>
+          <span>Blue:</span>
+          <input
+            value={rgbValue.blue.toString()}
+            onChange={(event) => onChange(event.target.value, RGBField.blue)}
+            type="number"
+            min={0}
+            max={255}
+            disabled={disabled}
+          />
+        </div>
       </div>
       <div className={s.buttons}>
         <Button type="button" disabled={!rgbValue.id} onClick={() => onCancel()}>

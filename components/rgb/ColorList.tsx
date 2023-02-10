@@ -13,7 +13,7 @@ export default function ColorList({ colors, onEdit, onDelete }: Props) {
   const colorItems = colors.map(
     (color: RGB) =>
       <li className={s.colorItem} key={color.id}>
-        {color.id} -
+        {color.id}
 
         <div
           className={s.colorBadge}
